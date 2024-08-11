@@ -11,6 +11,9 @@ public class PaymentsRabbitListener {
     @RabbitListener(queues = "alura-food.payments-ms.payments-details.evaluations-ms")
     public void getPaymentsMessages(@Payload PaymentDto payment){
         System.out.println(payment.toString());
+        if (payment.getPayNumber().equals("0000")) {
+            throw new RuntimeException("Number Invalid");
+        }
     }
 
 }
