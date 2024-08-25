@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PaymentsRabbitListener {
 
-    @RabbitListener(queues = "alura-food.payments-ms.payments-details.evaluations-ms")
+    @RabbitListener(queues = "alura-food.payments-ms.payments-created.evaluations-ms")
     public void getPaymentsMessages(@Payload PaymentDto payment){
         System.out.println(payment.toString());
         if (payment.getPayNumber().equals("0000")) {

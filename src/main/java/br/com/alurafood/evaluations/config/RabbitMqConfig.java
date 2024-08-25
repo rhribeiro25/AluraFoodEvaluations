@@ -31,45 +31,45 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    public Queue queuePaymentsDetails() {
+    public Queue queuePaymentsCreated() {
         return QueueBuilder
-                .nonDurable("alura-food.payments-ms.payments-details.evaluations-ms")
-                .deadLetterExchange("payments.dlx")
+                .nonDurable("alura-food.payments-ms.payments-created.evaluations-ms")
+                .deadLetterExchange("payments.created.evaluations.dlx")
                 .build();
     }
 
     @Bean
-    public Queue dlqQueuePaymentsDetails() {
+    public Queue dlqQueuePaymentsCreated() {
         return QueueBuilder
-                .nonDurable("alura-food.payments-ms.payments-details.evaluations-ms.dlq")
+                .nonDurable("alura-food.payments-ms.payments-created.evaluations-ms.dlq")
                 .build();
     }
 
     @Bean
     public FanoutExchange paymentsFanoutExchange() {
         return ExchangeBuilder
-                .fanoutExchange("payments.ex")
+                .fanoutExchange("payments.created.ex")
                 .build();
     }
 
     @Bean
     public FanoutExchange paymentsDeadLetterExchange() {
         return ExchangeBuilder
-                .fanoutExchange("payments.dlx")
+                .fanoutExchange("payments.created.evaluations.dlx")
                 .build();
     }
 
     @Bean
-    public Binding bindPaymentsOrders() {
+    public Binding bindPaymentsevaluations() {
         return BindingBuilder
-                .bind(queuePaymentsDetails())
+                .bind(queuePaymentsCreated())
                 .to(paymentsFanoutExchange());
     }
 
     @Bean
-    public Binding bindDlxPaymentsOrders() {
+    public Binding bindDlxPaymentsevaluations() {
         return BindingBuilder
-                .bind(dlqQueuePaymentsDetails())
+                .bind(dlqQueuePaymentsCreated())
                 .to(paymentsDeadLetterExchange());
     }
 
