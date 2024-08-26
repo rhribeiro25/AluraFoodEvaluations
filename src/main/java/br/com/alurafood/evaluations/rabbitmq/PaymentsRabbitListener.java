@@ -21,9 +21,9 @@ public class PaymentsRabbitListener {
     public void getPaymentsMessages(@Payload PaymentDto payment){
         Evaluation evaluation = Evaluation.builder()
                 .status(EvaluationStatus.PENDING)
-                .orderId(payment.getOrderId())
+                .productId(payment.getOrder().getProduct().getId())
                 .points(BigDecimal.valueOf(0.00))
-                .description("")
+                .comment("")
                 .build();
         evaluationRepository.save(evaluation);
     }

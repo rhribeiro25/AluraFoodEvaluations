@@ -26,13 +26,13 @@ public class Evaluation {
     private EvaluationStatus status;
 
     @NotNull
-    private Long orderId;
+    private Long productId;
 
     @NotNull
     @Digits(integer=5, fraction=2)
     private BigDecimal points;
 
     @Size(max = 256)
-    private String description;
+    private String comment;
 
 }

@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS evaluations (
   	CONSTRAINT pk_evaluation
   		primary key,
   status varchar(255) NOT NULL,
-  order_id NOT NULL,
-  points decimal(1,2) NOT NULL,
-  description varchar(256)
+  product_id bigint NOT NULL,
+  points decimal(19,2) NOT NULL,
+  comment varchar(256)
 );
