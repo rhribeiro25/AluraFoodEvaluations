@@ -25,15 +25,15 @@ public class PaymentsRabbitListener {
     @RabbitListener(queues = "alura-food.payments-ms.payments-confirmed.evaluations-ms")
     public void getPaymentsMessages(@Payload PaymentDto payment){
         OrderDto orderDto = orderClient.getOrderById(payment.getOrderId());
-        orderDto.getOrderItems().stream().map(orderItem ->
-                Evaluation.builder()
-                        .status(EvaluationStatus.PENDING)
-                        .productId(orderItem.getProduct().getId())
-                        .points(BigDecimal.valueOf(0.00))
-                        .comment("")
-                        .build()
-        )
-                .findFirst()
-                .ifPresent(evaluationRepository::save);
+        orderDto.getOrderItems().forEach(orderItem -> {
+                    Evaluation evaluation = Evaluation.builder()
+                            .status(EvaluationStatus.PENDING)
+                            .productId(orderItem.getProduct().getId())
+                            .points(BigDecimal.valueOf(0.00))
+                            .comment("")
+                            .build();
+                    evaluationRepository.save(evaluation);
+                }
+        );
     }
 }
